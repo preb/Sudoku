@@ -74,9 +74,15 @@ bool Sudoku::solve() {
 }
 
 std::istream& operator>>(std::istream &in, Sudoku &sudoku) {
-    for (int row {0}; row < 9; ++row)
-        for (int column {0}; column < 9; ++column)
-            in >> sudoku.grid[row][column];
+    for (int row {0}; row < 9; ++row) {
+        for (int column {0}; column < 9; ++column) {
+            char digit;
+            in >> digit;
+            // We read in digits as chars. Digits in ASCII start at 48 (0 -> 48, 9 -> 57)
+            // so we subtract by 48 to get the actual int value of the digit.
+            sudoku.grid[row][column] = digit - 48;
+        }
+    }
     return in;
 }
 
