@@ -1,6 +1,7 @@
 # Simple Sudoku solver
 
 Takes in a string of numbers with empty cells of the Sudoku grid denoted as 0.
+
 Outputs solved Sudoku, or error message if not solvable, to stdout.
 
 #### This might look like this
