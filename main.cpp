@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Sudoku.h"
+#include "Sudoku.hpp"
 
 int main() {
     Sudoku s;
