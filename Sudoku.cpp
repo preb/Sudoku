@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "Sudoku.hpp"
 
 // Check if a row already contains a certain number.
@@ -73,11 +74,11 @@ bool Sudoku::solve() {
 std::istream& operator>>(std::istream &in, Sudoku &sudoku) {
     for (int row {0}; row < 9; ++row) {
         for (int col {0}; col < 9; ++col) {
-            char digit;
-            in >> digit;
-            // We read in digits as chars. Digits in ASCII start at 48 (0 -> 48, 9 -> 57)
-            // so we subtract by 48 to get the actual int value of the digit.
-            sudoku.grid[row][col] = digit - 48;
+            int num;
+            std::cin >> num;
+            if (std::cin.fail() or num < 0 or num > 9)
+                throw std::runtime_error("Could not read Sudoku puzzle.");
+            sudoku.grid[row][col] = num;
         }
     }
     return in;
@@ -91,3 +92,4 @@ std::ostream& operator<<(std::ostream &out, const Sudoku &sudoku) {
     }
     return out;
 }
+
