@@ -4,12 +4,12 @@
 
 class Sudoku {
 private:
-    int grid[9][9];
-    bool alreadyInRow(int, int);
-    bool alreadyInCol(int, int);
-    bool alreadyInBox(int, int, int);
-    bool viable(int, int, int);
-    bool findNextEmptyCell(int&, int&);
+    int grid[9][9] {};
+    bool alreadyInRow(int, int) const;
+    bool alreadyInCol(int, int) const;
+    bool alreadyInBox(int, int, int) const;
+    bool viable(int, int, int) const;
+    bool findNextEmptyCell(int&, int&) const;
 public:
     bool solve();
     friend std::istream& operator>>(std::istream&, Sudoku&);
