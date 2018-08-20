@@ -1,3 +1,4 @@
+#include <cmath>
 #include <stdexcept>
 #include "Sudoku.hpp"
 
@@ -42,12 +43,13 @@ bool Sudoku::findNextEmptyCell(int &row, int &col) const {
     return false;
 }
 
-Sudoku::Sudoku(int row_sz, int col_sz, int box_sz) :
+Sudoku::Sudoku(int row_sz, int col_sz) :
     row_size {row_sz},
-    col_size {col_sz},
-    box_size {box_sz} {
+    col_size {col_sz} {
+    box_size = std::sqrt(row_size);
     if (row_size != col_size or box_size * box_size != row_size)
         throw std::runtime_error("Invalid Sudoku size.");
+
     grid = new int*[row_size];
     for (int row = 0; row < row_size; ++row) {
         grid[row] = new int[col_size];

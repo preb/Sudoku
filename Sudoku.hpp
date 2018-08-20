@@ -12,7 +12,7 @@ private:
     bool viable(int, int, int) const;
     bool findNextEmptyCell(int&, int&) const;
 public:
-    Sudoku(int, int, int);
+    Sudoku(int, int);
     ~Sudoku();
     bool solve();
     friend std::istream& operator>>(std::istream&, Sudoku&);
