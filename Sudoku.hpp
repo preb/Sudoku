@@ -4,7 +4,7 @@
 
 class Sudoku {
 private:
-    int row_size, col_size, box_size;
+    int grid_size, box_size;
     int **grid;
     bool alreadyInRow(int, int) const;
     bool alreadyInCol(int, int) const;
@@ -12,7 +12,7 @@ private:
     bool viable(int, int, int) const;
     bool findNextEmptyCell(int&, int&) const;
 public:
-    Sudoku(int, int);
+    Sudoku(int);
     ~Sudoku();
     bool solve();
     friend std::istream& operator>>(std::istream&, Sudoku&);

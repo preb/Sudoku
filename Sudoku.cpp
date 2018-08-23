@@ -4,14 +4,14 @@
 
 // Check if a row already contains a certain number.
 bool Sudoku::alreadyInRow(int num, int row) const {
-    for (int col = 0; col < col_size; ++col)
+    for (int col = 0; col < grid_size; ++col)
         if (grid[row][col] == num) return true;
     return false;
 }
 
 // Check if a column already contains a certain number.
 bool Sudoku::alreadyInCol(int num, int col) const {
-    for (int row = 0; row < row_size; ++row)
+    for (int row = 0; row < grid_size; ++row)
         if (grid[row][col] == num) return true;
     return false;
 }
@@ -36,30 +36,28 @@ bool Sudoku::viable(int num, int row, int col) const {
 // the Sudoku and return false. The next empty cell will be saved for our
 // caller because row and column parameters are references.
 bool Sudoku::findNextEmptyCell(int &row, int &col) const {
-    for (row = 0; row < row_size; ++row) {
-        for (col = 0; col < col_size; ++col)
+    for (row = 0; row < grid_size; ++row) {
+        for (col = 0; col < grid_size; ++col)
             if (grid[row][col] == 0) return true;
     }
     return false;
 }
 
-Sudoku::Sudoku(int row_sz, int col_sz) :
-    row_size {row_sz},
-    col_size {col_sz} {
-    box_size = std::sqrt(row_size);
-    if (row_size != col_size or box_size * box_size != row_size)
+Sudoku::Sudoku(int size) : grid_size {size} {
+    box_size = std::sqrt(grid_size);
+    if (box_size * box_size != grid_size)
         throw std::runtime_error("Invalid Sudoku size.");
 
-    grid = new int*[row_size];
-    for (int row = 0; row < row_size; ++row) {
-        grid[row] = new int[col_size];
-        for (int col = 0; col < col_size; ++col)
+    grid = new int*[grid_size];
+    for (int row = 0; row < grid_size; ++row) {
+        grid[row] = new int[grid_size];
+        for (int col = 0; col < grid_size; ++col)
             grid[row][col] = 0;
     }
 }
 
 Sudoku::~Sudoku() {
-    for (int row = 0; row < row_size; ++row)
+    for (int row = 0; row < grid_size; ++row)
         delete[] grid[row];
     delete[] grid;
 }
@@ -73,7 +71,7 @@ bool Sudoku::solve() {
     if (!findNextEmptyCell(row, col))
         return true;
 
-    for (int num = 1; num <= row_size; ++num) {
+    for (int num = 1; num <= grid_size; ++num) {
         // Place a number from 1 to 9 into the empty cell
         // if it is viable.
         if (viable(num, row, col)) {
@@ -94,10 +92,10 @@ bool Sudoku::solve() {
 
 std::istream& operator>>(std::istream &in, Sudoku &sudoku) {
     int num;
-    for (int row = 0; row < sudoku.row_size; ++row) {
-        for (int col = 0; col < sudoku.col_size; ++col) {
+    for (int row = 0; row < sudoku.grid_size; ++row) {
+        for (int col = 0; col < sudoku.grid_size; ++col) {
             std::cin >> num;
-            if (std::cin.fail() or num < 0 or num > sudoku.row_size)
+            if (std::cin.fail() or num < 0 or num > sudoku.grid_size)
                 throw std::runtime_error("Could not read Sudoku puzzle.");
             sudoku.grid[row][col] = num;
         }
@@ -106,8 +104,8 @@ std::istream& operator>>(std::istream &in, Sudoku &sudoku) {
 }
 
 std::ostream& operator<<(std::ostream &out, const Sudoku &sudoku) {
-    for (int row = 0; row < sudoku.row_size; ++row) {
-        for (int col = 0; col < sudoku.col_size; ++col)
+    for (int row = 0; row < sudoku.grid_size; ++row) {
+        for (int col = 0; col < sudoku.grid_size; ++col)
             out << sudoku.grid[row][col] << ' ';
         out << '\n';
     }
