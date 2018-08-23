@@ -1,12 +1,33 @@
 ## Simple Sudoku solver
 
-Takes a string of numbers seperated by whitespace. Empty cells are
-denoted by the number 0.
-Throws `std::runtime_error` if it cannot read the Sudoku grid.
+The class constructor takes as parameter the size of the Sudoku puzzle. 
+For a 9x9 puzzle size would be 9.
 
-Outputs solved Sudoku or error message if not solvable.
+It then takes a string of numbers seperated by whitespace. Empty cells are denoted by the number 0.
 
-Input should look like this:
+Returns true if it could solve the Sudoku, false otherwise.
+
+Usage:
+
+```c++
+#include <iostream>
+#include "Sudoku.hpp"
+
+int main() {
+    int size;
+    std::cin >> size;
+
+    Sudoku s(size);
+    std::cin >> s;
+
+    if (s.solve())
+        std::cout << s << std::endl;
+    else
+        std::cout << "Could not solve Sudoku!" << std::endl;
+}
+```
+
+Input could look like this:
 
 ```
 5 3 0 0 7 0 0 0 0
